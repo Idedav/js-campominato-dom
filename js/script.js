@@ -1,7 +1,11 @@
 const container = document.querySelector('.dc-container');
 const btnStart = document.getElementById('start');
+const gameFreeze = document.querySelector('.end-game');
 let bombs = [];
 const difficulty = document.getElementById('difficulty');
+let points = 0;
+let endGame = false;
+let message;
 
 btnStart.addEventListener('click', function(){
     reset();
@@ -18,22 +22,19 @@ function start(){
         }else if(difficulty.value == 49){
             square.classList.add('hard');
         }
-        square.addEventListener('click', function(){
-            if(bombs.includes(this._SquareID)){
-                this.classList.add('bomb')
-            }
-            this.classList.add('clicked')
-            console.log(this._SquareID);
-        }) 
         container.append(square);
+        square.addEventListener('click', clickedCell);
     }
     createBomb();
-    console.log(bombs)
+    console.log(bombs);
 }
 
 function reset(){
     container.innerHTML= '';
     bombs = [];
+    points = 0;
+    document.getElementById('message-output').innerHTML = '';
+    gameFreeze.classList.add('d-none');
     return container;
 }
 
@@ -42,6 +43,27 @@ function createSquare(index){
     newSquare._SquareID = index;
     newSquare.className = 'square'
     return newSquare;
+}
+
+function clickedCell(){
+    if(bombs.includes(this._SquareID)){
+        this.classList.add('bomb');
+        endGame = true;
+        gameFreeze.classList.remove('d-none');
+        message = `<h1>Hai perso, totalizzando ${points} punti su ${difficulty.value - bombs.length + 1}</h1>`
+        printer();
+    }
+    this.classList.add('clicked');
+    points++
+    if(points == (difficulty.value - bombs.length)){
+        endGame = true;
+        gameBlock.classList.remove('d-none');
+        message = `<h1>Hai vinto! totalizzando ${points} punti su ${difficulty.value - bombs.length + 1}</h1>`
+        printer();
+    }
+    this.removeEventListener('click', clickedCell);
+    console.log(points);
+    console.log(this._SquareID);
 }
 
 function randomizer(min, max){
@@ -53,11 +75,14 @@ function createBomb(){
         let bombValid = false;
         do{
             bomb = randomizer(1, difficulty.value);
-            const bombCreated = bomb;
             bombValid = bombs.includes(bomb);
             if(!bombValid){
                 bombs.push(bomb);
             }
         }while(bombValid)
     }
+}
+
+function printer(){
+    document.getElementById('message-output').innerHTML = message;
 }

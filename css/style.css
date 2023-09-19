@@ -12,6 +12,13 @@ header{
     width: 700px;
     height: 700px;
 }
+.end-game{
+    width: 700px;
+    height: 700px;
+    background-color: rgba(0, 0, 0, .5);
+    position: absolute;
+    margin-bottom: 100px;
+}
 
 .square{
     width: calc(100% / 10);
@@ -36,4 +43,8 @@ header{
 .square.hard{
     width: calc(100% / 7);
     height: calc(100% / 7);
+}
+
+#message-output{
+    height: 100px;
 }
