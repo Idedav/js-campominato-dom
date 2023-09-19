@@ -1,0 +1,35 @@
+header{
+    height: 100px;
+    background-color: white;
+}
+
+.main-wrapper{
+    height: calc(100vh - 100px);
+    background-color: springgreen;
+}
+
+.dc-container{
+    width: 700px;
+    height: 700px;
+}
+
+.square{
+    width: calc(100% / 10);
+    height: calc(100% / 10);
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.square.clicked{
+    background-color: cornflowerblue;
+}
+
+.square.medium{
+    width: calc(100% / 9);
+    height: calc(100% / 9);
+}
+
+.square.hard{
+    width: calc(100% / 7);
+    height: calc(100% / 7);
+}
