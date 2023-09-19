@@ -24,6 +24,10 @@ header{
     background-color: cornflowerblue;
 }
 
+.square.bomb{
+    background-color: red;
+}
+
 .square.medium{
     width: calc(100% / 9);
     height: calc(100% / 9);

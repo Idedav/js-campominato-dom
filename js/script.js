@@ -1,5 +1,6 @@
 const container = document.querySelector('.dc-container');
 const btnStart = document.getElementById('start');
+let bombs = [];
 const difficulty = document.getElementById('difficulty');
 
 btnStart.addEventListener('click', function(){
@@ -18,14 +19,21 @@ function start(){
             square.classList.add('hard');
         }
         square.addEventListener('click', function(){
-            this.classList.toggle('clicked')
+            if(bombs.includes(this._SquareID)){
+                this.classList.add('bomb')
+            }
+            this.classList.add('clicked')
             console.log(this._SquareID);
-        })
-        container.append(square)
+        }) 
+        container.append(square);
     }
+    createBomb();
+    console.log(bombs)
 }
+
 function reset(){
-    container.innerHTML= ''
+    container.innerHTML= '';
+    bombs = [];
     return container;
 }
 
@@ -34,4 +42,22 @@ function createSquare(index){
     newSquare._SquareID = index;
     newSquare.className = 'square'
     return newSquare;
+}
+
+function randomizer(min, max){
+    return Math.floor((Math.random()* max)+ min);
+}
+
+function createBomb(){
+    for(c = 1; c <= 16; c++){
+        let bombValid = false;
+        do{
+            bomb = randomizer(1, difficulty.value);
+            const bombCreated = bomb;
+            bombValid = bombs.includes(bomb);
+            if(!bombValid){
+                bombs.push(bomb);
+            }
+        }while(bombValid)
+    }
 }
