@@ -34,7 +34,7 @@ function reset(){
     bombs = [];
     points = 0;
     document.getElementById('message-output').innerHTML = '';
-    gameFreeze.classList.add('d-none');
+    container.classList.remove('bg-freeze')
     return container;
 }
 
@@ -49,9 +49,9 @@ function clickedCell(){
     if(bombs.includes(this._SquareID)){
         this.classList.add('bomb');
         endGame = true;
-        gameFreeze.classList.remove('d-none');
         message = `<h1>Hai perso, totalizzando ${points} punti su ${difficulty.value - bombs.length + 1}</h1>`
         printer();
+        freezeGame();
     }
     this.classList.add('clicked');
     points++
@@ -60,6 +60,7 @@ function clickedCell(){
         gameBlock.classList.remove('d-none');
         message = `<h1>Hai vinto! totalizzando ${points} punti su ${difficulty.value - bombs.length + 1}</h1>`
         printer();
+        freezeGame();
     }
     this.removeEventListener('click', clickedCell);
     console.log(points);
@@ -85,4 +86,15 @@ function createBomb(){
 
 function printer(){
     document.getElementById('message-output').innerHTML = message;
+}
+
+function freezeGame(){
+    const allSquare = document.getElementsByClassName('square');
+    for(i = 0; i < allSquare.length; i++){
+        container.classList.add('bg-freeze');
+        allSquare[i].removeEventListener('click', clickedCell);
+        if(bombs.includes(allSquare[i]._SquareID)){
+            allSquare[i].classList.add('bomb');
+        }
+    }
 }

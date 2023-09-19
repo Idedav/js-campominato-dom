@@ -5,20 +5,14 @@ header{
 
 .main-wrapper{
     height: calc(100vh - 100px);
-    background-color: springgreen;
+    background-color: cornflowerblue;
 }
 
 .dc-container{
     width: 700px;
     height: 700px;
 }
-.end-game{
-    width: 700px;
-    height: 700px;
-    background-color: rgba(0, 0, 0, .5);
-    position: absolute;
-    margin-bottom: 100px;
-}
+
 
 .square{
     width: calc(100% / 10);
@@ -28,7 +22,7 @@ header{
 }
 
 .square.clicked{
-    background-color: cornflowerblue;
+    background-color: springgreen;
 }
 
 .square.bomb{
@@ -45,6 +39,7 @@ header{
     height: calc(100% / 7);
 }
 
-#message-output{
-    height: 100px;
+.bg-freeze{
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 1;
 }
